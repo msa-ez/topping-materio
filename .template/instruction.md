@@ -3,6 +3,7 @@
 ```
 cd frotend-materio
 cd javascript-version
-npm i
+
+npm install
 npm run dev
 ```
