@@ -199,8 +199,6 @@ export default {
             } else {
                 return false;
             }
-        }else{
-            return false;
         }
     })
 
