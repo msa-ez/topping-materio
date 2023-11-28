@@ -62,7 +62,7 @@ fileName: {{namePascalCase}}.vue
 import BaseEntity from './base-ui/BaseEntity.vue'
 {{#aggregateRoot.fieldDescriptors}}
 {{#if (isNotId nameCamelCase)}}
-{{#if (isPrimitiveType className)}}
+{{#if (isPrimitiveImport className)}}
 import {{getPrimitiveType className}} from './primitives/{{getPrimitiveType className}}.vue'
 {{else}}
 {{/if}}
@@ -96,8 +96,7 @@ export default {
     components:{
         {{#aggregateRoot.fieldDescriptors}}
         {{#if (isNotId nameCamelCase)}}
-        {{#if (isPrimitiveType className)}}
-        {{setClassNameList className}}
+        {{#if (isPrimitiveComponent className)}}
         {{getPrimitiveType className}},
         {{else}}
         {{/if}}
@@ -143,7 +142,8 @@ export default {
 </script>
 
 <function>
-    var classNameList = []
+    var importList = []
+    var componentList = []
 
     window.$HandleBars.registerHelper('getEntityFromList', function (className) {
         if(className.includes("List<") && className.includes(">")) {
@@ -200,9 +200,9 @@ export default {
             return false;
         }
     })
-    window.$HandleBars.registerHelper('isPrimitiveType', function (className) {
-        if(!classNameList.includes(className)){
-            classNameList.push(className)
+    window.$HandleBars.registerHelper('isPrimitiveImport', function (className) {
+        if(!importList.includes(className)){
+            importList.push(className)
             if(className.includes("String") || className.includes("Integer") || className.includes("Long") || className.includes("Double") || className.includes("Float")
                 || className.includes("Boolean") || className.includes("Date")){
                 return true;
@@ -213,8 +213,18 @@ export default {
             return false;
         }
     })
-    window.$HandleBars.registerHelper('setClassNameList', function (className) {
-        classNameList = []
+    window.$HandleBars.registerHelper('isPrimitiveComponent', function (className) {
+        if(!componentList.includes(className)){
+            componentList.push(className)
+            if(className.includes("String") || className.includes("Integer") || className.includes("Long") || className.includes("Double") || className.includes("Float")
+                || className.includes("Boolean") || className.includes("Date")){
+                return true;
+            } else {
+                return false;
+            }
+        }else{
+            return false;
+        }
     })
 
     window.$HandleBars.registerHelper('getPrimitiveType', function (className, options) {
