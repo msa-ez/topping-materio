@@ -228,7 +228,7 @@ export default {
                 if(this.isLob) {
                     primitiveImport = "import LargeObject from './primitives/LargeObject.vue'";
                 } else {
-                    primitiveImport = "import String from './primitives/String.vue'";
+                    primitiveImport = "import String from" + "'." + "/primitives/String.vue'"
                 }
             }else if(className.includes("Integer") || className.includes("Long") || className.includes("Double") || className.includes("Float") || className.includes("int")) {
                 if(this.isLob) {
