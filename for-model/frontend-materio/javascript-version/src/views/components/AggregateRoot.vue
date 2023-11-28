@@ -62,7 +62,7 @@ fileName: {{namePascalCase}}.vue
 import BaseEntity from './base-ui/BaseEntity.vue'
 {{#aggregateRoot.fieldDescriptors}}
 {{#if (isNotId nameCamelCase)}}
-{{#if (isPrimitive className)}}
+{{#if (isPrimitiveType className)}}
 import {{getPrimitiveType className}} from './primitives/{{getPrimitiveType className}}.vue'
 {{else}}
 {{/if}}
