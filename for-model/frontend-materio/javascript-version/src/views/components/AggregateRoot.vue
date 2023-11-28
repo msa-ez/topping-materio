@@ -200,8 +200,8 @@ export default {
         }
     })
     window.$HandleBars.registerHelper('isPrimitiveType', function (className) {
-        if(!this.classNameList.includes(className)){
-            this.classNameList.push(className)
+        if(!classNameList.includes(className)){
+            classNameList.push(className)
             if(className.includes("String") || className.includes("Integer") || className.includes("Long") || className.includes("Double") || className.includes("Float")
                 || className.includes("Boolean") || className.includes("Date")){
                 return true;
