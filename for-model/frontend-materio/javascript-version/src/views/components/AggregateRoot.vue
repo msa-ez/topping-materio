@@ -242,8 +242,6 @@ export default {
                 primitiveImport = "import Date from './primitives/Date.vue'";
             }
             return primitiveImport
-        }else{
-            return false;
         }
     })
 
