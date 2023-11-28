@@ -199,21 +199,43 @@ export default {
     })
 
     window.$HandleBars.registerHelper('getPrimitiveType', function (className, options) {
-        if(className.includes("String")) {
+        var classNameList = []
+        if(className.includes("String") && !classNameList.includes("String")) {
             if(this.isLob) {
+                classNameList.push(className);
                 return "LargeObject";
             } else {
+                classNameList.push(className);
                 return "String";
             }
         } else if(className.includes("Integer") || className.includes("Long") || className.includes("Double") || className.includes("Float") || className.includes("int")) {
+            if(classNameList.includes("Integer")){
+                return false;
+            }
+            if(classNameList.includes("Long")){
+                return false;
+            }
+            if(classNameList.includes("Double")){
+                return false;
+            }
+            if(classNameList.includes("Float")){
+                return false;
+            }
+            if(classNameList.includes("int")){
+                return false;
+            }
             if(this.isLob) {
+                classNameList.push(className);
                 return "LargeObject";
             } else {
+                classNameList.push(className);
                 return "Number";
             }
-        } else if(className.includes("Boolean")) {
+        } else if(className.includes("Boolean") && !classNameList.includes("Boolean")) {
+            classNameList.push(className);
             return "Boolean";
-        } else if(className.includes("Date")) {
+        } else if(className.includes("Date") && !classNameList.includes("Date")) {
+            classNameList.push(className);
             return "Date";
         }
     })
