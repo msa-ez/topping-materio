@@ -96,7 +96,7 @@ export default {
     components:{
         {{#aggregateRoot.fieldDescriptors}}
         {{#if (isNotId nameCamelCase)}}
-        {{#if (isPrimitive className)}}
+        {{#if (isPrimitiveType className)}}
         {{getPrimitiveType className}},
         {{else}}
         {{/if}}
@@ -192,8 +192,16 @@ export default {
     })
 
     window.$HandleBars.registerHelper('isPrimitive', function (className) {
-        if(!classNameList.includes(className)){
-            classNameList.push(className)
+        if(className.includes("String") || className.includes("Integer") || className.includes("Long") || className.includes("Double") || className.includes("Float")
+            || className.includes("Boolean") || className.includes("Date")){
+            return true;
+        } else {
+            return false;
+        }
+    })
+    window.$HandleBars.registerHelper('isPrimitiveType', function (className) {
+        if(!this.classNameList.includes(className)){
+            this.classNameList.push(className)
             if(className.includes("String") || className.includes("Integer") || className.includes("Long") || className.includes("Double") || className.includes("Float")
                 || className.includes("Boolean") || className.includes("Date")){
                 return true;
@@ -201,7 +209,7 @@ export default {
                 return false;
             }
         }else{
-            false;
+            return false;
         }
     })
 
