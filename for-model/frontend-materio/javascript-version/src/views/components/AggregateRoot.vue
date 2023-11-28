@@ -63,7 +63,7 @@ import BaseEntity from './base-ui/BaseEntity.vue'
 {{#aggregateRoot.fieldDescriptors}}
 {{#if (isNotId nameCamelCase)}}
 {{#if (isPrimitive className)}}
-import {{getPrimitiveType className}} from './primitives/{{getPrimitiveType className}}.vue'
+{{getPrimitivesImport className}}
 {{else}}
 {{/if}}
 {{/if}}
@@ -143,7 +143,7 @@ export default {
 
 <function>
     var classNameList = []
-
+    
     window.$HandleBars.registerHelper('getEntityFromList', function (className) {
         if(className.includes("List<") && className.includes(">")) {
             return className.replace("List<", "").replace(">", "");
@@ -201,43 +201,49 @@ export default {
     })
 
     window.$HandleBars.registerHelper('getPrimitiveType', function (className, options) {
-        if(className.includes("String") && !classNameList.includes("String")) {
+        if(className.includes("String")) {
             if(this.isLob) {
-                classNameList.push(className);
                 return "LargeObject";
             } else {
-                classNameList.push(className);
                 return "String";
             }
         } else if(className.includes("Integer") || className.includes("Long") || className.includes("Double") || className.includes("Float") || className.includes("int")) {
-            if(classNameList.includes("Integer")){
-                return false;
-            }
-            if(classNameList.includes("Long")){
-                return false;
-            }
-            if(classNameList.includes("Double")){
-                return false;
-            }
-            if(classNameList.includes("Float")){
-                return false;
-            }
-            if(classNameList.includes("int")){
-                return false;
-            }
             if(this.isLob) {
-                classNameList.push(className);
                 return "LargeObject";
             } else {
-                classNameList.push(className);
                 return "Number";
             }
-        } else if(className.includes("Boolean") && !classNameList.includes("Boolean")) {
-            classNameList.push(className);
+        } else if(className.includes("Boolean")) {
             return "Boolean";
-        } else if(className.includes("Date") && !classNameList.includes("Date")) {
-            classNameList.push(className);
+        } else if(className.includes("Date")) {
             return "Date";
+        }
+    })
+
+    window.$HandleBars.registerHelper('getPrimitivesImport', function (className) {
+        var primitiveImport = null
+        if(!classNameList.includes(className)){
+            classNameList.push(className);
+            if(className.includes("String")) {
+                if(this.isLob) {
+                    primitiveImport = "import LargeObject from './primitives/LargeObject.vue'";
+                } else {
+                    primitiveImport = "import String from './primitives/String.vue'";
+                }
+            }else if(className.includes("Integer") || className.includes("Long") || className.includes("Double") || className.includes("Float") || className.includes("int")) {
+                if(this.isLob) {
+                    primitiveImport = "import LargeObject from './primitives/LargeObject.vue'";
+                } else {
+                    primitiveImport = "import Number from './primitives/Number.vue'";
+                }
+            }else if(className.includes("Boolean")) {
+                primitiveImport = "import Boolean from './primitives/Boolean.vue'";
+            } else if(className.includes("Date")) {
+                primitiveImport = "import Date from './primitives/Date.vue'";
+            }
+            return primitiveImport
+        }else{
+            return false;
         }
     })
 
