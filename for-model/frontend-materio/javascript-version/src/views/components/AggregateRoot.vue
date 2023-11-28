@@ -142,6 +142,7 @@ export default {
 </script>
 
 <function>
+    var classNameList = []
     window.$HandleBars.registerHelper('getEntityFromList', function (className) {
         if(className.includes("List<") && className.includes(">")) {
             return className.replace("List<", "").replace(">", "");
