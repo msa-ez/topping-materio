@@ -97,7 +97,7 @@ export default {
         {{#aggregateRoot.fieldDescriptors}}
         {{#if (isNotId nameCamelCase)}}
         {{#if (isPrimitiveType className)}}
-        {{getPrimitiveType className}}{{getPrimitiveType className}},
+        {{getPrimitiveType className}},
         {{else}}
         {{/if}}
         {{/if}}
