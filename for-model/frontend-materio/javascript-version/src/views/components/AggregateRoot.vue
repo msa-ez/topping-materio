@@ -97,6 +97,7 @@ export default {
         {{#aggregateRoot.fieldDescriptors}}
         {{#if (isNotId nameCamelCase)}}
         {{#if (isPrimitiveType className)}}
+        {{setClassNameList className}}
         {{getPrimitiveType className}},
         {{else}}
         {{/if}}
@@ -211,6 +212,9 @@ export default {
         }else{
             return false;
         }
+    })
+    window.$HandleBars.registerHelper('setClassNameList', function (className) {
+        classNameList = []
     })
 
     window.$HandleBars.registerHelper('getPrimitiveType', function (className, options) {
