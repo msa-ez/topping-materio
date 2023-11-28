@@ -142,6 +142,8 @@ export default {
 </script>
 
 <function>
+    var classNameList = []
+
     window.$HandleBars.registerHelper('getEntityFromList', function (className) {
         if(className.includes("List<") && className.includes(">")) {
             return className.replace("List<", "").replace(">", "");
@@ -199,7 +201,6 @@ export default {
     })
 
     window.$HandleBars.registerHelper('getPrimitiveType', function (className, options) {
-        var classNameList = []
         if(className.includes("String") && !classNameList.includes("String")) {
             if(this.isLob) {
                 classNameList.push(className);
