@@ -217,9 +217,9 @@ export default {
     })
 
     window.$HandleBars.registerHelper('getEntityFromList', function (className) {
-    if(className.includes("List<") && className.includes(">")) {
-        return className.replace("List<", "").replace(">", "");
-    }
-    return className;
-})
+        if(className.includes("List<") && className.includes(">")) {
+            return className.replace("List<", "").replace(">", "");
+        }
+        return className;
+    })
 </function>
