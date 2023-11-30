@@ -170,7 +170,6 @@ import { ref } from 'vue';
 import { useTheme } from 'vuetify';
 import DrawerContent from '../../../layouts/components/DrawerContent.vue';
 import BaseGrid from '../base-ui/BaseGrid.vue'
-
 import {{namePascalCase}} from '../{{namePascalCase}}.vue'
 {{#aggregateRoot.fieldDescriptors}}
 {{#unless isKey}}
@@ -196,7 +195,6 @@ import {{getEntityFromList className}}DetailGrid from './{{getEntityFromList cla
 {{#attached 'View' this}}
 import {{namePascalCase}} from '../{{namePascalCase}}.vue'
 {{/attached}}
-
 
 export default {
     name: '{{nameCamelCase}}Grid',
