@@ -70,9 +70,6 @@ import {{className}} from './vo/{{className}}.vue'
             {{#checkVO className}}
             {{className}},
             {{/checkVO}}
-            {{#checkEntityMember className}}
-            {{className}},
-            {{/checkEntityMember}}
             {{#checkListOfEntityMember className}}
             {{/checkListOfEntityMember}}
             {{/if}}
