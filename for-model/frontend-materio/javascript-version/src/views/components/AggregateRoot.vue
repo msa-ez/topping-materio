@@ -89,6 +89,9 @@ import {{className}} from './{{className}}.vue'
 {{/if}}
 {{/if}}
 {{/aggregateRoot.fieldDescriptors}}
+{{#views}}
+import {{name}} from '../{{name}}.vue'
+{{/views}}
 
 export default {
     name: '{{namePascalCase}}',
