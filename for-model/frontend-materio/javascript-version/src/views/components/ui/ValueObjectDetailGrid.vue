@@ -27,7 +27,7 @@ fileName: {{namePascalCase}}DetailGrid.vue
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(detailVal, idx) in selectedRow.{{getEntityFromList className}}{{nameCamelCase}}" :key="detailVal" >
+                    <tr v-for="(detailVal, idx) in selectedRow." :key="detailVal" >
                         <td class="font-semibold">\{{ idx + 1 }}</td>
                         {{#fieldDescriptors}}
                         {{#if (isNotId nameCamelCase)}}
@@ -101,6 +101,7 @@ import BaseDetailGrid from '../base-ui/BaseDetailGrid.vue';
 {{else}}
 import {{getPrimitiveType className}} from '../primitives/{{getPrimitiveType className}}.vue'
 {{/if}}
+{{else}}
 {{/if}}
 {{/if}}
 {{/fieldDescriptors}}
@@ -117,6 +118,7 @@ export default {
         {{getPrimitiveType className}},
         {{/if}}
         {{else}}
+        {{namePascalCase}},
         {{/if}}
         {{/if}}
         {{/fieldDescriptors}}
@@ -216,10 +218,11 @@ export default {
         }
     })
 
-    window.$HandleBars.registerHelper('getEntityFromList', function (className) {
-        if(className.includes("List<") && className.includes(">")) {
-            return className.replace("List<", "").replace(">", "");
+    window.$HandleBars.registerHelper('getEntityFromList', function (fieldDescriptors) {
+    for(var i = 0; i < fieldDescriptors.length; i++){
+        if(fieldDescriptors[i].isList == true){
+            return nameCamelCase
         }
-        return className;
-    })
+    }
+})
 </function>
