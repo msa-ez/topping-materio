@@ -50,7 +50,7 @@ fileName: Address.vue
 </template>
 
 <script>
-    import { GoogleMap, Marker} from 'vue3-google-maps'
+    // import { GoogleMap, Marker} from 'vue3-google-maps'
 
     export default {
         name:"Address",

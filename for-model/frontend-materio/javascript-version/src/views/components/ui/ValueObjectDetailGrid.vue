@@ -27,7 +27,7 @@ fileName: {{namePascalCase}}DetailGrid.vue
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(detailVal, idx) in selectedRow.salesItem" :key="detailVal" >
+                    <tr v-for="(detailVal, idx) in selectedRow.{{getEntityFromList className}}{{nameCamelCase}}" :key="detailVal" >
                         <td class="font-semibold">\{{ idx + 1 }}</td>
                         {{#fieldDescriptors}}
                         {{#if (isNotId nameCamelCase)}}
@@ -101,8 +101,6 @@ import BaseDetailGrid from '../base-ui/BaseDetailGrid.vue';
 {{else}}
 import {{getPrimitiveType className}} from '../primitives/{{getPrimitiveType className}}.vue'
 {{/if}}
-{{else}}
-import {{namePascalCase}} from '../{{namePascalCase}}.vue'
 {{/if}}
 {{/if}}
 {{/fieldDescriptors}}
@@ -119,7 +117,6 @@ export default {
         {{getPrimitiveType className}},
         {{/if}}
         {{else}}
-        {{namePascalCase}},
         {{/if}}
         {{/if}}
         {{/fieldDescriptors}}
@@ -214,8 +211,15 @@ export default {
     })
     window.$HandleBars.registerHelper('getNameCamelCase', function (nameCamelCase) {
         if(nameCamelCase){
-            var tdVal = '{{ val.' + nameCamelCase + ' }}'
+            var tdVal = '{{ detailVal.' + nameCamelCase + ' }}'
             return tdVal
         }
     })
+
+    window.$HandleBars.registerHelper('getEntityFromList', function (className) {
+    if(className.includes("List<") && className.includes(">")) {
+        return className.replace("List<", "").replace(">", "");
+    }
+    return className;
+})
 </function>
