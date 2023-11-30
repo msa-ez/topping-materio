@@ -56,9 +56,6 @@ import {{getPrimitiveType className}} from './primitives/{{getPrimitiveType clas
 {{#checkVO className}}
 import {{className}} from './vo/{{className}}.vue'
 {{/checkVO}}
-{{#checkEntityMember className}}
-import {{className}} from './{{className}}.vue'
-{{/checkEntityMember}}
 {{#checkListOfEntityMember className}}
 {{/checkListOfEntityMember}}
 {{/if}}
