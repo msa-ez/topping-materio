@@ -17,7 +17,6 @@ fileName: {{namePascalCase}}Grid.vue
     </v-col>
     <v-col :cols="10">
         <v-row>
-            <!-- <UserProfile style="right: 2px;"/> -->
         </v-row>
         <div style="max-height:80vh; margin-top: 90px;">
             <div class="panel">
