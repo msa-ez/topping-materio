@@ -118,7 +118,6 @@ export default {
         {{getPrimitiveType className}},
         {{/if}}
         {{else}}
-        {{namePascalCase}},
         {{/if}}
         {{/if}}
         {{/fieldDescriptors}}
