@@ -19,6 +19,9 @@ fileName: {{namePascalCase}}Grid.vue
         <v-row>
             <!-- <UserProfile style="right: 2px;"/> -->
         </v-row>
+        {{#attached 'View' this}}
+        <{{namePascalCase}} @search="search"></{{namePascalCase}}>
+        {{/attached}}
         <div style="max-height:80vh; margin-top: 90px;">
             <div class="panel">
                 <div class="gs-bundle-of-buttons" style="max-height:10vh;">
@@ -190,6 +193,9 @@ import {{nameCamelCase}}Id from '../{{nameCamelCase}}Id.vue'
 import {{getEntityFromList className}}DetailGrid from './{{getEntityFromList className}}DetailGrid.vue'
 {{/if}}
 {{/aggregateRoot.fieldDescriptors}}
+{{#attached 'View' this}}
+import {{namePascalCase}} from '../{{namePascalCase}}.vue'
+{{/attached}}
 
 
 export default {
@@ -219,6 +225,9 @@ export default {
         {{getEntityFromList className}}DetailGrid,
         {{/if}}
         {{/aggregateRoot.fieldDescriptors}}
+        {{#attached 'View' this}}
+        {{namePascalCase}},
+        {{/attached}}
     },
     data: () => ({
         path: '{{namePlural}}',
