@@ -215,7 +215,7 @@ export default {
         {{/aggregateRoot.fieldDescriptors}}
         {{#outgoingRelations}}
         {{#target}}
-        {{nameCamelCase}}Id,
+        {{namePascalCase}}Id,
         {{/target}}
         {{/outgoingRelations}}
         {{#aggregateRoot.fieldDescriptors}}
