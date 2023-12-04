@@ -50,7 +50,7 @@ fileName: {{pascalCase name}}.vue
 
 <script>
 {{#fieldDescriptors}}
-{{#if (isPrimitive className)}}
+{{#if (isPrimitiveComponent className)}}
 import {{getPrimitiveType className}} from './primitives/{{getPrimitiveType className}}.vue'
 {{else}}
 {{#checkVO className}}
@@ -67,7 +67,7 @@ export default {
     name: '{{namePascalCase}}Command',
     components:{
         {{#fieldDescriptors}}
-        {{#if (isPrimitive className)}}
+        {{#if (isPrimitiveComponent className)}}
         {{getPrimitiveType className}},
         {{else}}
         {{#checkVO className}}
@@ -109,6 +109,9 @@ export default {
 
 
 <function>
+    var importList = []
+    var componentList = []
+
     window.$HandleBars.registerHelper('print', function (value) {
         console.log(value)
     });
@@ -154,6 +157,32 @@ export default {
                 || className == "Boolean" || className == "Date"){
             return true;
         } else {
+            return false;
+        }
+    })
+    window.$HandleBars.registerHelper('isPrimitiveImport', function (className) {
+        if(!importList.includes(className)){
+            importList.push(className)
+            if(className.includes("String") || className.includes("Integer") || className.includes("Long") || className.includes("Double") || className.includes("Float")
+                || className.includes("Boolean") || className.includes("Date")){
+                return true;
+            } else {
+                return false;
+            }
+        }else{
+            return false;
+        }
+    })
+    window.$HandleBars.registerHelper('isPrimitiveComponent', function (className) {
+        if(!componentList.includes(className)){
+            componentList.push(className)
+            if(className.includes("String") || className.includes("Integer") || className.includes("Long") || className.includes("Double") || className.includes("Float")
+                || className.includes("Boolean") || className.includes("Date")){
+                return true;
+            } else {
+                return false;
+            }
+        }else{
             return false;
         }
     })
