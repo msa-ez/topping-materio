@@ -56,6 +56,9 @@ import {{getPrimitiveType className}} from './primitives/{{getPrimitiveType clas
 {{#checkVO className}}
 import {{className}} from './vo/{{className}}.vue'
 {{/checkVO}}
+{{#checkEntityMember className}}
+import {{className}} from './{{className}}.vue'
+{{/checkEntityMember}}
 {{#checkListOfEntityMember className}}
 {{/checkListOfEntityMember}}
 {{/if}}
@@ -213,6 +216,8 @@ import {{className}} from './vo/{{className}}.vue'
         if(!(className.endsWith("Address") || className.endsWith("Photo") || className.endsWith("User") || className.endsWith("Email") 
                 || className.endsWith("Payment") || className.endsWith("Money") || className.endsWith("Weather") || className.endsWith("Rating")) && className.indexOf("java.") == -1 && className.indexOf("List") == -1){
             return options.fn(this);
+        } else if(className.endsWith("String"){
+            return options.inverse(this);
         } else {
             return options.inverse(this);
         }
