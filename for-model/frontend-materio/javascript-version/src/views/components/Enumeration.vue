@@ -28,6 +28,7 @@ export default {
     mixins:[BaseEntity],
     components:{},
     props: {
+        modelValue: Object,
         label: String
     },
     data: () => ({
@@ -40,10 +41,11 @@ export default {
         }
     },
     watch: {
-        value(newVal) {
-            this.$emit("update:modelValue", newVal);
-        },
-        
+        value:{
+            handler: function(){
+                this.$emit("update:modelValue", this.value)
+            }
+        }
     },
     methods: {
     }
