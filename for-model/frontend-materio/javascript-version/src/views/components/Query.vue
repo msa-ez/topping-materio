@@ -74,7 +74,7 @@ import {{className}} from './{{className}}.vue'
             {{className}},
             {{/checkVO}}
             {{#checkEntityMember className}}
-            {{className}}
+            {{className}},
             {{/checkEntityMember}}
             {{#checkListOfEntityMember className}}
             {{/checkListOfEntityMember}}
