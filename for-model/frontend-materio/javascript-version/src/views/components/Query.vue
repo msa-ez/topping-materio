@@ -17,13 +17,13 @@ except: {{#ifEquals dataProjection "query-for-aggregate"}}false{{else}}true{{/if
                 </v-col>
                 {{else}}
                 {{#checkVO className}}
-                <v-col style="max-width:140px;">
+                <v-col style="max-width:150px;">
                     <{{className}} offline label="{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}" v-model="value.parameters.{{nameCamelCase}}" :editMode="editMode" @change="change"/>
                 </v-col>
                 {{/checkVO}}
                 {{#checkEntityMember className}}
                 <v-col style="max-width:140px;">
-                    <{{className}} offline label="{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}" v-model="value.parameters.{{nameCamelCase}}" :editMode="editMode" @change="change"/>
+                    <{{className}} style="margin-top: 0px; margin-left: 10px;" offline label="{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}" v-model="value.parameters.{{nameCamelCase}}" :editMode="editMode" @change="change"/>
                 </v-col>
                 {{/checkEntityMember}}
                 {{#checkListOfEntityMember className}}
