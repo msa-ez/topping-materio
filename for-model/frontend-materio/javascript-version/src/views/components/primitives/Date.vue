@@ -3,7 +3,8 @@ fileName: Date.vue
 ---
 <template>
     <div v-if="editMode">
-        {{ label }}
+        \{{ label }}
+        
         <v-text-field
             v-bind="attrs"
             v-model="filteredDate"
@@ -13,11 +14,11 @@ fileName: Date.vue
         ></v-text-field>
         <v-col>
             <DatePicker v-if="calendarMode" v-model="date" style=" margin-top: 10px; margin-left: 40px;"/>
-            <v-btn v-if="calendarMode" @click="closeCalendar" style="position: relative; z-index: 1; bottom: 4px; right: 12.5%; vertical-align: bottom; " variant="text" color="black">완료</v-btn>
+            <v-btn v-if="calendarMode" @click="closeCalendar" style="position: relative; z-index: 1; bottom: 4px; right: 12.5%; vertical-align: bottom;" variant="text" color="black">완료</v-btn>
         </v-col>
     </div>
     <div v-else>
-        {{ label }} : {{ formattedDate }}
+        \{{ label }} : \{{ formattedDate }}
     </div>
 
 </template>
