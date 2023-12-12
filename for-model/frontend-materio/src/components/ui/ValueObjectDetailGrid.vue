@@ -27,7 +27,7 @@ fileName: {{namePascalCase}}DetailGrid.vue
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(detailVal, idx) in selectedRow.salesItem" :key="detailVal" >
+                    <tr v-for="(detailVal, idx) in selectedRow.{{nameCamelCase}}s" :key="detailVal" >
                         <td class="font-semibold">\{{ idx + 1 }}</td>
                         {{#fieldDescriptors}}
                         {{#if (isNotId nameCamelCase)}}

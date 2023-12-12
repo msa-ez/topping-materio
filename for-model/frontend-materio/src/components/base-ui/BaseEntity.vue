@@ -6,6 +6,7 @@ fileName: BaseEntity.vue
 </template>
 
 <script>
+import axios from 'axios'
 import BaseRepository from '../repository/BaseRepository'
 import axios from '@axios'
 
@@ -71,10 +72,10 @@ export default {
             try {
                 var temp = null;
                 if(!this.offline) {
-                    if(this.isNew) {
+                    if(this.isNew){
                         temp = await this.repository.save(this.value, this.isNew)
                         this.value = temp
-                    } else {
+                    }else{
                         temp = await this.repository.save(this.selectedRow, false)
                     }
                 }
