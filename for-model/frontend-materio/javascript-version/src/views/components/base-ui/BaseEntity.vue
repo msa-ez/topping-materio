@@ -21,12 +21,9 @@ export default {
     },
     data() {
         return {
-            values: [],
             newValue: {},
-            isUpdating: false,
             path: '/path',
             repository: null,
-            updateCompanyDiagram: false,
             openDialog : false,
             value: {},
             snackbar: {
@@ -35,6 +32,9 @@ export default {
                 text: '',
                 color: 'info',
             },
+            editDialog: false,
+            selectedRow: null
+            
         };
     },
     async created() {
@@ -72,11 +72,13 @@ export default {
         async save() {
             try {
                 var temp = null;
-                console.log(this.newValue)
                 if(!this.offline) {
-                    
-                    temp = await this.repository.save(this.value, this.isNew)
-                    this.value = temp
+                    if(this.isNew){
+                        temp = await this.repository.save(this.value, this.isNew)
+                        this.value = temp
+                    }else{
+                        temp = await this.repository.save(this.selectedRow, false)
+                    }
                 }
                 if(this.value!=null) {
                     for(var k in temp.data) this.value[k]=temp.data[k];
@@ -90,9 +92,8 @@ export default {
                 if (this.isNew) {
                     this.$emit('add', this.value);
                 } else {
-                    this.$emit('edit', this.value);
+                    this.closeEditDialog();
                 }
-
             } catch(e) {
                 this.error(e)
             }
@@ -114,10 +115,6 @@ export default {
         change() {
             this.$emit("update:modelValue", this.value);
         },
-        closeDialog() {
-            this.openDialog = false;
-            this.$emit("update:editMode", false)
-        },
         error(e){
             this.snackbar.status = true
             this.snackbar.color = 'error'
@@ -132,6 +129,9 @@ export default {
             this.snackbar.status = true
             this.snackbar.text = msg
 
+        },
+        closeEditDialog(){
+            this.editDialog = false
         }
     },
 };
