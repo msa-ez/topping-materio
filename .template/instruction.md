@@ -1,15 +1,19 @@
-## Running in local development environment
+#### Extensive Set of UI Controls: Wijmo provides a wide array of high-quality UI controls that cover a variety of needs, from grids and charts to input and navigation.
 
-```
-cd frotend-materio
-cd javascript-version
+#### Flexibility and Customization: Wijmo controls are customizable and can be easily tailored to fit the look and feel of your application.
 
-npm install
-npm run dev
-```
+#### Framework-Agnostic: Wijmo controls are designed to work seamlessly with popular JavaScript frameworks such as Angular, React, and Vue, giving developers the flexibility to choose their preferred framework.
 
-#### Choose From Unique Layouts: Materio Vuetify VueJS Admin Template provides 6 unique layouts: Default, Bordered, Semi-Dark & Dark.
+#### Performance: Wijmo controls are optimized for performance, ensuring smooth and responsive web applications, especially for data-intensive operations like large data sets in a grid.
 
-#### Stunning Applications: Materio Vuetify Vuejs admin template provides 6 different applications which enable you to get started and build your applications faster.
+#### Touch Support: Designed with mobile in mind, Wijmo controls support touch events, making them suitable for both desktop and mobile development.
 
-#### Advanced Cards: Materio Vuetify Vuejs Admin Template provides 60+ Basic & Advanced Cards for eCommerce Analytics, CRM, Statistics, and Interactive Charts.
+#### Globalization and Localization: Wijmo includes built-in globalization features, allowing for easy localization of applications to cater to various regions and languages.
+
+#### Interactivity: Many Wijmo controls offer advanced interactivity features, including sorting, filtering, grouping, and more.
+
+#### Extensive Documentation and Demos: Wijmo provides thorough documentation, interactive tutorials, and live demos, which can significantly speed up the development process and assist in resolving issues.
+
+#### Ongoing Support and Regular Updates: Wijmo has active support from GrapeCity, ensuring that any issues are addressed promptly, and the library stays up-to-date with the latest web development trends and practices.
+
+#### Integration with Other GrapeCity Products: If you're already using other GrapeCity products, Wijmo can be easily integrated, allowing for a consistent development experience.
