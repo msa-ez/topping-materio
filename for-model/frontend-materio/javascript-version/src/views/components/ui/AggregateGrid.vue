@@ -163,7 +163,7 @@ fileName: {{namePascalCase}}Grid.vue
                                 {{#aggregateRoot.fieldDescriptors}}
                                 {{#if (isNotId nameCamelCase)}}
                                 {{#if (isPrimitive className)}}
-                                <{{getPrimitiveType className}} label="{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}" v-model="selectedRow.{{nameCamelCase}}" :editMode="true"/>
+                                <{{getPrimitiveType className}} label="{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}" v-model="selectedRow.{{nameCamelCase}}" :editMode="true"1/>
                                 {{else}}
                                 {{/if}}
                                 {{/if}}
@@ -173,7 +173,7 @@ fileName: {{namePascalCase}}Grid.vue
                                 {{#if (isNotId nameCamelCase)}}
                                 {{#if isVO}}
                                 {{#checkVO className}}
-                                <{{className}} offline label="{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}" v-model="selectedRow.{{nameCamelCase}}" :editMode="true"/>
+                                <{{className}} offline label="{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}" v-model="selectedRow.{{nameCamelCase}}" :editMode="true"2/>
                                 {{/checkVO}}
                                 {{/if}}
                                 {{/if}}
@@ -185,9 +185,9 @@ fileName: {{namePascalCase}}Grid.vue
                                 {{else}}
                                 {{#checkEntityMember className}}
                                 {{#if (getPrimitiveType className)}}
-                                <{{getPrimitiveType className}} offline label="{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}" v-model="selectedRow.{{nameCamelCase}}" :editMode="true"/>
+                                <{{getPrimitiveType className}} offline label="{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}" v-model="selectedRow.{{nameCamelCase}}" :editMode="true"3/>
                                 {{else}}
-                                <{{className}} offline label="{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}" v-model="selectedRow.{{nameCamelCase}}" :editMode="true"/>
+                                <{{className}} offline label="{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}" v-model="selectedRow.{{nameCamelCase}}" :editMode="true"4/>
                                 {{/if}}
                                 {{/checkEntityMember}}
                                 {{/if}}
@@ -196,7 +196,7 @@ fileName: {{namePascalCase}}Grid.vue
                                 {{/aggregateRoot.fieldDescriptors}}
                                 {{#aggregateRoot.fieldDescriptors}}
                                 {{#if isList}}
-                                <{{getEntityFromList className}}DetailGrid label="{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}" offline v-model="selectedRow.{{nameCamelCase}}" :editMode="true"/>
+                                <{{getEntityFromList className}}DetailGrid label="{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}" offline v-model="selectedRow.{{nameCamelCase}}" :editMode="true"5/>
                                 {{/if}}
                                 {{/aggregateRoot.fieldDescriptors}}
                                 <v-divider class="border-opacity-100 my-divider"></v-divider>
