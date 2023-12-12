@@ -18,20 +18,20 @@ fileName: {{namePascalCase}}Grid.vue
                 <v-btn @click="addNewRow" @class="contrast-primary-text" small color="primary">
                     <v-icon small style="margin-left: -5px;">mdi-plus</v-icon>등록
                 </v-btn>
-                <v-btn style="margin-left: 5px;" @click="editSelectedRow()" class="contrast-primary-text" small color="primary">
+                <v-btn style="margin-left: 5px;" @click="openEditDialog()" class="contrast-primary-text" small color="primary">
                     <v-icon small>mdi-pencil</v-icon>수정
                 </v-btn>
                 {{#commands}}
                 {{^isRestRepository}}
                 <v-btn style="margin-left: 5px;" {{#if fieldDescriptors}}@click="{{nameCamelCase}}Dialog = true"{{else}}@click="{{nameCamelCase}}"{{/if}} class="contrast-primary-text" small color="primary" {{#if (attachedActorName actorName)}}:disabled="!hasRole('{{actorName}}')"{{/if}}>
                     <v-icon small>mdi-minus-circle-outline</v-icon>{{#ifNotNull displayName name}}{{/ifNotNull}}
-                </v-btn> 
+                </v-btn>
                 {{#if fieldDescriptors}}
                 <v-dialog v-model="{{nameCamelCase}}Dialog" width="500">
-                    <{{namePascalCase}}Command
+                    <{{namePascalCase}}
                         @closeDialog="{{nameCamelCase}}Dialog = false"
                         @{{nameCamelCase}}="{{nameCamelCase}}"
-                    ></{{namePascalCase}}Command>
+                    ></{{namePascalCase}}>
                 </v-dialog>
                 {{/if}}
                 {{/isRestRepository}}
@@ -114,7 +114,7 @@ fileName: {{namePascalCase}}Grid.vue
                         class="elevation-0"
                         height="50px"
                     >
-                        <div style="color:white; font-size:17px; font-weight:700;">Company 등록</div>
+                        <div style="color:white; font-size:17px; font-weight:700;">{{namePascalCase}} 등록</div>
                         <v-spacer></v-spacer>
                         <v-icon
                             color="white"
@@ -133,37 +133,96 @@ fileName: {{namePascalCase}}Grid.vue
                     </v-card-text>
                 </v-card>
             </v-dialog>
-        </v-col>
-        <v-col style="margin-bottom:40px;">
-            <div class="text-center">
-                <v-dialog
-                    width="332.5"
-                    fullscreen
-                    hide-overlay
-                    transition="dialog-bottom-transition"
-                >
-                    <v-btn
-                        style="position:absolute; top:2%; right:2%"
-                        @click="closeDialog()"
-                        depressed
-                        icon 
-                        absolute
+            <v-dialog
+                v-model="editDialog"
+                transition="dialog-bottom-transition"
+                width="35%"
+            >
+                <v-card>
+                    <v-toolbar
+                        color="primary"
+                        class="elevation-0"
+                        height="50px"
                     >
-                        <v-icon>mdi-close</v-icon>
-                    </v-btn>
-                </v-dialog>
-            </div>
+                        <div style="color:white; font-size:17px; font-weight:700;">{{namePascalCase}} 수정</div>
+                        <v-spacer></v-spacer>
+                        <v-icon
+                            color="white"
+                            small
+                            @click="closeDialog()"
+                        >mdi-close</v-icon>
+                    </v-toolbar>
+                    <v-card-text>
+                        <div>
+                            {{#aggregateRoot.fieldDescriptors}}
+                            {{#if (isNotId nameCamelCase)}}
+                            {{#if (isPrimitive className)}}
+                            <{{getPrimitiveType className}} label="{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}" v-model="selectedRow.{{nameCamelCase}}" :editMode="true"/>
+                            {{else}}
+                            {{/if}}
+                            {{/if}}
+                            {{/aggregateRoot.fieldDescriptors}}
+                            {{#aggregateRoot.fieldDescriptors}}
+                            {{#unless isKey}}
+                            {{#if (isNotId nameCamelCase)}}
+                            {{#if isVO}}
+                            {{#checkVO className}}
+                            <{{className}} offline label="{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}" v-model="selectedRow.{{nameCamelCase}}" :editMode="true"/>
+                            {{/checkVO}}
+                            {{/if}}
+                            {{/if}}
+                            {{/unless}}
+                            {{#if isList}}
+                            {{else}}
+                            {{#if (isNotId nameCamelCase)}}
+                            {{#if (isPrimitive className)}}
+                            {{else}}
+                            {{#checkEntityMember className}}
+                            {{#if (getPrimitiveType className)}}
+                            <{{getPrimitiveType className}} offline label="{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}" v-model="selectedRow.{{nameCamelCase}}" :editMode="true"/>
+                            {{else}}
+                            <{{className}} offline label="{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}" v-model="selectedRow.{{nameCamelCase}}" :editMode="true"/4>
+                            {{/if}}
+                            {{/checkEntityMember}}
+                            {{/if}}
+                            {{/if}}
+                            {{/if}}
+                            {{/aggregateRoot.fieldDescriptors}}
+                            {{#aggregateRoot.fieldDescriptors}}
+                            {{#if isList}}
+                            <{{getEntityFromList className}}DetailGrid label="{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}" offline v-model="selectedRow.{{nameCamelCase}}" :editMode="true"/>
+                            {{/if}}
+                            {{/aggregateRoot.fieldDescriptors}}
+                            <v-divider class="border-opacity-100 my-divider"></v-divider>
+                            <v-layout row justify-end>
+                                <v-btn
+                                    width="64px"
+                                    color="primary"
+                                    @click="save"
+                                >
+                                    수정
+                                </v-btn>
+                            </v-layout>
+                        </div>
+                    </v-card-text>
+                </v-card>
+            </v-dialog>
         </v-col>
     </v-container>
 </template>
 
 <script>
+import { ref } from 'vue';
+import { useTheme } from 'vuetify';
+import DrawerContent from '../../../layouts/components/DrawerContent.vue';
 import BaseGrid from '../base-ui/BaseGrid.vue'
-
 import {{namePascalCase}} from '../{{namePascalCase}}.vue'
 {{#aggregateRoot.fieldDescriptors}}
 {{#unless isKey}}
 {{#if (isNotId nameCamelCase)}}
+{{#if (isPrimitiveImport className)}}
+import {{getPrimitiveType className}} from '../primitives/{{getPrimitiveType className}}.vue'
+{{/if}}
 {{#if isVO}}
 {{#checkVO className}}
 import {{className}} from '../vo/{{className}}.vue'
@@ -171,10 +230,23 @@ import {{className}} from '../vo/{{className}}.vue'
 {{/if}}
 {{/if}}
 {{/unless}}
+{{#if isList}}
+{{else}}
+{{#if (isNotId nameCamelCase)}}
+{{#if (isPrimitive className)}}
+{{else}}
+{{#checkEntityMember className}}
+{{#if (getPrimitiveType className)}}
+{{else}}
+import {{className}} from '../{{className}}.vue'
+{{/if}}
+{{/checkEntityMember}}
+{{/if}}
+{{/if}}
+{{/if}}
 {{/aggregateRoot.fieldDescriptors}}
 {{#outgoingRelations}}
 {{#target}}
-import {{namePascalCase}}Id from '../{{namePascalCase}}Id.vue'
 {{/target}}
 {{/outgoingRelations}}
 {{#aggregateRoot.fieldDescriptors}}
@@ -182,16 +254,29 @@ import {{namePascalCase}}Id from '../{{namePascalCase}}Id.vue'
 import {{getEntityFromList className}}DetailGrid from './{{getEntityFromList className}}DetailGrid.vue'
 {{/if}}
 {{/aggregateRoot.fieldDescriptors}}
-
+{{#attached 'View' this}}
+import {{namePascalCase}} from '../{{namePascalCase}}.vue'
+{{/attached}}
+{{#commands}}
+{{^isRestRepository}}
+{{#if fieldDescriptors}}
+import {{namePascalCase}} from '../{{namePascalCase}}.vue'
+{{/if}}
+{{/isRestRepository}}
+{{/commands}}
 
 export default {
     name: '{{nameCamelCase}}Grid',
     mixins:[BaseGrid],
     components:{
+        DrawerContent,
         {{namePascalCase}},
         {{#aggregateRoot.fieldDescriptors}}
         {{#unless isKey}}
         {{#if (isNotId nameCamelCase)}}
+        {{#if (isPrimitiveComponent className)}}
+        {{getPrimitiveType className}},
+        {{/if}}
         {{#if isVO}}
         {{#checkVO className}}
         {{className}},
@@ -199,10 +284,23 @@ export default {
         {{/if}}
         {{/if}}
         {{/unless}}
+        {{#if isList}}
+        {{else}}
+        {{#if (isNotId nameCamelCase)}}
+        {{#if (isPrimitive className)}}
+        {{else}}
+        {{#checkEntityMember className}}
+        {{#if (getPrimitiveType className)}}
+        {{else}}
+        {{className}},
+        {{/if}}
+        {{/checkEntityMember}}
+        {{/if}}
+        {{/if}}
+        {{/if}}
         {{/aggregateRoot.fieldDescriptors}}
         {{#outgoingRelations}}
         {{#target}}
-        {{nameCamelCase}}Id,
         {{/target}}
         {{/outgoingRelations}}
         {{#aggregateRoot.fieldDescriptors}}
@@ -210,6 +308,16 @@ export default {
         {{getEntityFromList className}}DetailGrid,
         {{/if}}
         {{/aggregateRoot.fieldDescriptors}}
+        {{#attached 'View' this}}
+        {{namePascalCase}},
+        {{/attached}}
+        {{#commands}}
+        {{^isRestRepository}}
+        {{#if fieldDescriptors}}
+        {{namePascalCase}},
+        {{/if}}
+        {{/isRestRepository}}
+        {{/commands}}
     },
     data: () => ({
         path: '{{namePlural}}',
@@ -244,9 +352,11 @@ export default {
 }
 
 </script>
-
 <function>
+
 var me = this;
+var importList = []
+var componentList = []
 
 if (me && me.attached) {
     var postCmd = me.attached.find(ele => ele._type.includes("Command") && (ele.isExtendedVerb==true && ele.controllerInfo.method=="POST") || (ele.isRestRepository==true && ele.restRepositoryInfo.method=="POST"));
@@ -294,6 +404,40 @@ window.$HandleBars.registerHelper('getNameField', function (fieldDescriptors) {
         }
     }
 });
+window.$HandleBars.registerHelper('isPrimitive', function (className) {
+        if(className.includes("String") || className.includes("Integer") || className.includes("Long") || className.includes("Double") || className.includes("Float")
+            || className.includes("Boolean") || className.includes("Date")){
+            return true;
+        } else {
+            return false;
+        }
+    })
+window.$HandleBars.registerHelper('isPrimitiveImport', function (className) {
+    if(!importList.includes(className)){
+        importList.push(className)
+        if(className.includes("String") || className.includes("Integer") || className.includes("Long") || className.includes("Double") || className.includes("Float")
+            || className.includes("Boolean") || className.includes("Date")){
+            return true;
+        } else {
+            return false;
+        }
+    }else{
+        return false;
+    }
+})
+window.$HandleBars.registerHelper('isPrimitiveComponent', function (className) {
+    if(!componentList.includes(className)){
+        componentList.push(className)
+        if(className.includes("String") || className.includes("Integer") || className.includes("Long") || className.includes("Double") || className.includes("Float")
+            || className.includes("Boolean") || className.includes("Date")){
+            return true;
+        } else {
+            return false;
+        }
+    }else{
+        return false;
+    }
+})
 window.$HandleBars.registerHelper('checkVO', function (className, options) {
     if(className.endsWith("Address") || className.endsWith("Photo") || className.endsWith("User") || className.endsWith("Email") 
             || className.endsWith("Payment") || className.endsWith("Money") || className.endsWith("Weather") || className.endsWith("Rating") ){
