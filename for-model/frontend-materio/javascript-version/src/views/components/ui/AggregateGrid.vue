@@ -163,7 +163,7 @@ fileName: {{namePascalCase}}Grid.vue
                                 {{#aggregateRoot.fieldDescriptors}}
                                 {{#if (isNotId nameCamelCase)}}
                                 {{#if (isPrimitive className)}}
-                                <{{getPrimitiveType className}} label="{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}" v-model="selectedRow.{{nameCamelCase}}" :editMode="true"1/>
+                                <{{getPrimitiveType className}} label="{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}" v-model="selectedRow.{{nameCamelCase}}" :editMode="true"/>
                                 {{else}}
                                 {{/if}}
                                 {{/if}}
@@ -173,7 +173,7 @@ fileName: {{namePascalCase}}Grid.vue
                                 {{#if (isNotId nameCamelCase)}}
                                 {{#if isVO}}
                                 {{#checkVO className}}
-                                <{{className}} offline label="{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}" v-model="selectedRow.{{nameCamelCase}}" :editMode="true"2/>
+                                <{{className}} offline label="{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}" v-model="selectedRow.{{nameCamelCase}}" :editMode="true"/>
                                 {{/checkVO}}
                                 {{/if}}
                                 {{/if}}
@@ -185,9 +185,9 @@ fileName: {{namePascalCase}}Grid.vue
                                 {{else}}
                                 {{#checkEntityMember className}}
                                 {{#if (getPrimitiveType className)}}
-                                <{{getPrimitiveType className}} offline label="{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}" v-model="selectedRow.{{nameCamelCase}}" :editMode="true"3/>
+                                <{{getPrimitiveType className}} offline label="{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}" v-model="selectedRow.{{nameCamelCase}}" :editMode="true"/>
                                 {{else}}
-                                <{{className}} offline label="{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}" v-model="selectedRow.{{nameCamelCase}}" :editMode="true"4/>
+                                <{{className}} offline label="{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}" v-model="selectedRow.{{nameCamelCase}}" :editMode="true"/>
                                 {{/if}}
                                 {{/checkEntityMember}}
                                 {{/if}}
@@ -196,7 +196,7 @@ fileName: {{namePascalCase}}Grid.vue
                                 {{/aggregateRoot.fieldDescriptors}}
                                 {{#aggregateRoot.fieldDescriptors}}
                                 {{#if isList}}
-                                <{{getEntityFromList className}}DetailGrid label="{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}" offline v-model="selectedRow.{{nameCamelCase}}" :editMode="true"5/>
+                                <{{getEntityFromList className}}DetailGrid label="{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}" offline v-model="selectedRow.{{nameCamelCase}}" :editMode="true"/>
                                 {{/if}}
                                 {{/aggregateRoot.fieldDescriptors}}
                                 <v-divider class="border-opacity-100 my-divider"></v-divider>
@@ -410,6 +410,25 @@ window.$HandleBars.registerHelper('isPrimitiveComponent', function (className) {
         }
     }else{
         return false;
+    }
+})
+window.$HandleBars.registerHelper('getPrimitiveType', function (className, options) {
+    if(className.includes("String")) {
+        if(this.isLob) {
+            return "LargeObject";
+        } else {
+            return "String";
+        }
+    } else if(className.includes("Integer") || className.includes("Long") || className.includes("Double") || className.includes("Float") || className.includes("int")) {
+        if(this.isLob) {
+            return "LargeObject";
+        } else {
+            return "Number";
+        }
+    } else if(className.includes("Boolean")) {
+        return "Boolean";
+    } else if(className.includes("Date")) {
+        return "Date";
     }
 })
 window.$HandleBars.registerHelper('checkVO', function (className, options) {
