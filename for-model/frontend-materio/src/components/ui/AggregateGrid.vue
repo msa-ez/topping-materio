@@ -175,7 +175,7 @@ fileName: {{namePascalCase}}Grid.vue
                             {{#if (getPrimitiveType className)}}
                             <{{getPrimitiveType className}} offline label="{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}" v-model="selectedRow.{{nameCamelCase}}" :editMode="true"/>
                             {{else}}
-                            <{{className}} offline label="{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}" v-model="selectedRow.{{nameCamelCase}}" :editMode="true"/4>
+                            <{{className}} offline label="{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}" v-model="selectedRow.{{nameCamelCase}}" :editMode="true"/>
                             {{/if}}
                             {{/checkEntityMember}}
                             {{/if}}
