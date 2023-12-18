@@ -49,19 +49,13 @@ fileName: {{namePascalCase}}Grid.vue
                         {{#aggregateRoot.fieldDescriptors}}
                         {{#unless isKey}}
                         {{#if (isNotId nameCamelCase)}}
-                        {{#if isVO}}
-                        {{#checkVO className}}
-                        <th>{{className}}</th>
-                        {{/checkVO}}
-                        {{else}}
-                        <th>{{namePascalCase}}</th>
-                        {{/if}}
+                        <th>{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}</th>
                         {{/if}}
                         {{/unless}}
                         {{/aggregateRoot.fieldDescriptors}}
                         {{#outgoingRelations}}
                         {{#target}}
-                        <th>{{namePascalCase}}Id</th>
+                        <th>{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}</th>
                         {{/target}}
                         {{/outgoingRelations}}
                         </tr>

@@ -11,7 +11,7 @@ import {
 <template>
     <ul>
 {{#boundedContexts}}
-        <VerticalNavSectionTitle :item="{ heading: '{{namePascalCase}}' }" />
+        <VerticalNavSectionTitle :item="{ heading: '{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}' }" />
     {{#aggregates}}
         <VerticalNavLink
             :item="{
