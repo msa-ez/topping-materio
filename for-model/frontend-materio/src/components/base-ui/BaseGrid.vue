@@ -71,46 +71,6 @@ export default {
 
             return this.value;
         },
-        async generateMenu(){
-            let menuVal = await this.repository.generate("menus")
-            let menuGroupVal = await this.repository.generate("menuGroups")
-
-            for(var i = 0; i < menuVal.length; i++){
-                if(!menuVal[i].parentId){
-                    if(!this.menu.firstMenu){
-                        this.menu.firstMenu = []
-                    }
-                    this.menu.firstMenu.push(menuVal[i])
-                }
-            }
-            for(var j = 0; j < this.menu.firstMenu.length; j++){
-                if(!this.menu.firstMenu[j].secondMenu){
-                    this.menu.firstMenu[j].secondMenu = []
-                }
-                this.menu.firstMenu[j].id = this.findId(this.menu.firstMenu[j])
-                for(var i = 0; i < menuVal.length; i++){
-                    if(menuVal[i].parentId && menuVal[i].parentId.id){
-                        if(this.menu.firstMenu[j].id == menuVal[i].parentId.id){
-                            this.menu.firstMenu[j].secondMenu.push(menuVal[i])
-                        }
-                    }
-                }
-                for(var i = 0; i < menuGroupVal.length; i++){
-                    if(menuGroupVal[i].parentId){
-                        for(var k = 0; k < this.menu.firstMenu[j].secondMenu.length; k ++){
-                            if(!this.menu.firstMenu[j].secondMenu[k].thirdMenu){
-                                this.menu.firstMenu[j].secondMenu[k].thirdMenu = []
-                            }
-                            this.menu.firstMenu[j].secondMenu[k].id = this.findId(this.menu.firstMenu[j].secondMenu[k])
-                            if(this.menu.firstMenu[j].secondMenu[k].id == menuGroupVal[i].parentId.id){
-                                this.menu.firstMenu[j].secondMenu[k].thirdMenu.push(menuGroupVal[i])
-                            }                   
-                        }
-                    }
-                }
-            }
-            return this.menu
-        },
         findId(val){
             let id = val._links.self.href.split('/');
             return id.pop()
