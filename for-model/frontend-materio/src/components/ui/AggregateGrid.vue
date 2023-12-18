@@ -214,7 +214,6 @@ fileName: {{namePascalCase}}Grid.vue
 <script>
 import { ref } from 'vue';
 import { useTheme } from 'vuetify';
-import DrawerContent from '../../../layouts/components/DrawerContent.vue';
 import BaseGrid from '../base-ui/BaseGrid.vue'
 import {{namePascalCase}} from '../{{namePascalCase}}.vue'
 {{#aggregateRoot.fieldDescriptors}}
@@ -269,7 +268,6 @@ export default {
     name: '{{nameCamelCase}}Grid',
     mixins:[BaseGrid],
     components:{
-        DrawerContent,
         {{namePascalCase}},
         {{#aggregateRoot.fieldDescriptors}}
         {{#unless isKey}}
