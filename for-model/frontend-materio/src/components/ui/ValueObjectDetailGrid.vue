@@ -95,33 +95,11 @@ fileName: {{namePascalCase}}DetailGrid.vue
 
 <script>
 import BaseDetailGrid from '../base-ui/BaseDetailGrid.vue';
-{{#fieldDescriptors}}
-{{#if (isNotId nameCamelCase)}}
-{{#if (isPrimitiveImport className)}}
-{{#if (isStringType (getPrimitiveType className))}}
-{{else}}
-import {{getPrimitiveType className}} from '../primitives/{{getPrimitiveType className}}.vue'
-{{/if}}
-{{else}}
-{{/if}}
-{{/if}}
-{{/fieldDescriptors}}
 
 export default {
     name: '{{namePascalCase}}',
     mixins: [BaseDetailGrid],
     components: {
-        {{#fieldDescriptors}}
-        {{#if (isNotId nameCamelCase)}}
-        {{#if (isPrimitiveComponent className)}}
-        {{#if (isStringType (getPrimitiveType className))}}
-        {{else}}
-        {{getPrimitiveType className}},
-        {{/if}}
-        {{else}}
-        {{/if}}
-        {{/if}}
-        {{/fieldDescriptors}}
     },
     props: {
         label: String,

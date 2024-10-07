@@ -49,38 +49,10 @@ fileName: {{pascalCase name}}.vue
 </template>
 
 <script>
-{{#fieldDescriptors}}
-{{#if (isPrimitiveImport className)}}
-import {{getPrimitiveType className}} from './primitives/{{getPrimitiveType className}}.vue'
-{{else}}
-{{#checkVO className}}
-import {{className}} from './vo/{{className}}.vue'
-{{/checkVO}}
-{{#checkEntityMember className}}
-import {{className}} from './{{className}}.vue'
-{{/checkEntityMember}}
-{{#checkListOfEntityMember className}}
-{{/checkListOfEntityMember}}
-{{/if}}
-{{/fieldDescriptors}}
 
 export default {
     name: '{{namePascalCase}}Command',
     components:{
-        {{#fieldDescriptors}}
-        {{#if (isPrimitiveComponent className)}}
-        {{getPrimitiveType className}},
-        {{else}}
-        {{#checkVO className}}
-        {{className}},
-        {{/checkVO}}
-        {{#checkEntityMember className}}
-        {{className}},
-        {{/checkEntityMember}}
-        {{#checkListOfEntityMember className}}
-        {{/checkListOfEntityMember}}
-        {{/if}}
-        {{/fieldDescriptors}}
     },
     props: {},
     data: () => ({
