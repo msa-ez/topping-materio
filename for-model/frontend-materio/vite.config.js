@@ -26,7 +26,8 @@ export default defineConfig({
     Pages({}),
     Layouts(),
     Components({
-      dirs: ['src/@core/components'],
+      dirs: ['src/@core/components', 'src/components'],
+      extensions: ['vue'],
       dts: true,
     }),
     AutoImport({
