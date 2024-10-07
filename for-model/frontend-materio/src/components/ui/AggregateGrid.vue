@@ -209,107 +209,12 @@ fileName: {{namePascalCase}}Grid.vue
 import { ref } from 'vue';
 import { useTheme } from 'vuetify';
 import BaseGrid from '../base-ui/BaseGrid.vue'
-import {{namePascalCase}} from '../{{namePascalCase}}.vue'
-{{#aggregateRoot.fieldDescriptors}}
-{{#unless isKey}}
-{{#if (isNotId nameCamelCase)}}
-{{#if (isPrimitiveImport className)}}
-import {{getPrimitiveType className}} from '../primitives/{{getPrimitiveType className}}.vue'
-{{/if}}
-{{#if isVO}}
-{{#checkVO className}}
-import {{className}} from '../vo/{{className}}.vue'
-{{/checkVO}}
-{{/if}}
-{{/if}}
-{{/unless}}
-{{#if isList}}
-{{else}}
-{{#if (isNotId nameCamelCase)}}
-{{#if (isPrimitive className)}}
-{{else}}
-{{#checkEntityMember className}}
-{{#if (getPrimitiveType className)}}
-{{else}}
-import {{className}} from '../{{className}}.vue'
-{{/if}}
-{{/checkEntityMember}}
-{{/if}}
-{{/if}}
-{{/if}}
-{{/aggregateRoot.fieldDescriptors}}
-{{#outgoingRelations}}
-{{#target}}
-{{/target}}
-{{/outgoingRelations}}
-{{#aggregateRoot.fieldDescriptors}}
-{{#if isList}}
-import {{getEntityFromList className}}DetailGrid from './{{getEntityFromList className}}DetailGrid.vue'
-{{/if}}
-{{/aggregateRoot.fieldDescriptors}}
-{{#attached 'View' this}}
-import {{namePascalCase}} from '../{{namePascalCase}}.vue'
-{{/attached}}
-{{#commands}}
-{{^isRestRepository}}
-{{#if fieldDescriptors}}
-import {{namePascalCase}} from '../{{namePascalCase}}.vue'
-{{/if}}
-{{/isRestRepository}}
-{{/commands}}
+
 
 export default {
     name: '{{nameCamelCase}}Grid',
     mixins:[BaseGrid],
     components:{
-        {{namePascalCase}},
-        {{#aggregateRoot.fieldDescriptors}}
-        {{#unless isKey}}
-        {{#if (isNotId nameCamelCase)}}
-        {{#if (isPrimitiveComponent className)}}
-        {{getPrimitiveType className}},
-        {{/if}}
-        {{#if isVO}}
-        {{#checkVO className}}
-        {{className}},
-        {{/checkVO}}
-        {{/if}}
-        {{/if}}
-        {{/unless}}
-        {{#if isList}}
-        {{else}}
-        {{#if (isNotId nameCamelCase)}}
-        {{#if (isPrimitive className)}}
-        {{else}}
-        {{#checkEntityMember className}}
-        {{#if (getPrimitiveType className)}}
-        {{else}}
-        {{className}},
-        {{/if}}
-        {{/checkEntityMember}}
-        {{/if}}
-        {{/if}}
-        {{/if}}
-        {{/aggregateRoot.fieldDescriptors}}
-        {{#outgoingRelations}}
-        {{#target}}
-        {{/target}}
-        {{/outgoingRelations}}
-        {{#aggregateRoot.fieldDescriptors}}
-        {{#if isList}}
-        {{getEntityFromList className}}DetailGrid,
-        {{/if}}
-        {{/aggregateRoot.fieldDescriptors}}
-        {{#attached 'View' this}}
-        {{namePascalCase}},
-        {{/attached}}
-        {{#commands}}
-        {{^isRestRepository}}
-        {{#if fieldDescriptors}}
-        {{namePascalCase}},
-        {{/if}}
-        {{/isRestRepository}}
-        {{/commands}}
     },
     data: () => ({
         path: '{{namePlural}}',

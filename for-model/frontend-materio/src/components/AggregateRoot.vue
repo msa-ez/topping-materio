@@ -60,73 +60,11 @@ fileName: {{namePascalCase}}.vue
 <script>
 
 import BaseEntity from './base-ui/BaseEntity.vue'
-{{#aggregateRoot.fieldDescriptors}}
-{{#if (isNotId nameCamelCase)}}
-{{#if (isPrimitiveImport className)}}
-import {{getPrimitiveType className}} from './primitives/{{getPrimitiveType className}}.vue'
-{{else}}
-{{/if}}
-{{/if}}
-{{/aggregateRoot.fieldDescriptors}}
-{{#aggregateRoot.fieldDescriptors}}
-{{#if isList}}
-import {{getEntityFromList className}}DetailGrid from './ui/{{getEntityFromList className}}DetailGrid.vue'
-{{else}}
-{{#if (isNotId nameCamelCase)}}
-{{#if (isPrimitive className)}}
-{{else}}
-{{#checkVO className}}
-import {{className}} from './vo/{{className}}.vue'
-{{/checkVO}}
-{{#checkEntityMember className}}
-{{#if (getPrimitiveType className)}}
-import {{getPrimitiveType className}} from './primitives/{{getPrimitiveType className}}.vue'
-{{else}}
-import {{className}} from './{{className}}.vue'
-{{/if}}
-{{/checkEntityMember}}
-{{/if}}
-{{/if}}
-{{/if}}
-{{/aggregateRoot.fieldDescriptors}}
 
 export default {
     name: '{{namePascalCase}}',
     mixins:[BaseEntity],
     components:{
-        {{#aggregateRoot.fieldDescriptors}}
-        {{#if (isNotId nameCamelCase)}}
-        {{#if (isPrimitiveComponent className)}}
-        {{getPrimitiveType className}},
-        {{else}}
-        {{/if}}
-        {{/if}}
-        {{/aggregateRoot.fieldDescriptors}}
-        {{#aggregateRoot.fieldDescriptors}}
-        {{#if isList}}
-        {{else}}
-        {{#if (isNotId nameCamelCase)}}
-        {{#if (isPrimitive className)}}
-        {{else}}
-        {{#checkVO className}}
-        {{className}},
-        {{/checkVO}}
-        {{#checkEntityMember className}}
-        {{#if (getPrimitiveType className)}}
-        {{getPrimitiveType className}},
-        {{else}}
-        {{className}},
-        {{/if}}
-        {{/checkEntityMember}}
-        {{/if}}
-        {{/if}}
-        {{/if}}
-        {{/aggregateRoot.fieldDescriptors}}
-        {{#aggregateRoot.fieldDescriptors}}
-        {{#if isList}}
-        {{getEntityFromList className}}DetailGrid,
-        {{/if}}
-        {{/aggregateRoot.fieldDescriptors}}
     },
     
     data: () => ({
