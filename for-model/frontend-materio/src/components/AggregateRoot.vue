@@ -97,7 +97,7 @@ export default {
         {{#aggregateRoot.fieldDescriptors}}
         {{#if (isNotId nameCamelCase)}}
         {{#if (isPrimitiveComponent className)}}
-        {{getPrimitiveType className}},
+        1{{getPrimitiveType className}},
         {{else}}
         {{/if}}
         {{/if}}
@@ -144,6 +144,7 @@ export default {
 <function>
     var importList = []
     var componentList = []
+    var primitiveList = []
 
     window.$HandleBars.registerHelper('getEntityFromList', function (className) {
         if(className.includes("List<") && className.includes(">")) {
@@ -232,18 +233,34 @@ export default {
             if(this.isLob) {
                 return "LargeObject";
             } else {
-                return "String";
+                if(!primitiveList.includes("String")){
+                    primitiveList.push("String")
+                    return "String";
+                }else{
+                    return
+                }
             }
         } else if(className.includes("Integer") || className.includes("Long") || className.includes("Double") || className.includes("Float") || className.includes("int") || className.includes("BigDecimal")) {
             if(this.isLob) {
                 return "LargeObject";
             } else {
-                return "Number";
+                if(!primitiveList.includes("Number")){
+                    primitiveList.push("Number")
+                    return "Number";
+                }else{
+                    return
+                }
             }
         } else if(className.includes("Boolean")) {
-            return "Boolean";
+            if(!primitiveList.includes("Boolean")){
+                primitiveList.push("Boolean")
+                return "Boolean";
+            }
         } else if(className.includes("Date")) {
-            return "Date";
+            if(primitiveList.includes("Date")){
+                primitiveList.push("Date")
+                return "Date";
+            }
         }
     })
 
